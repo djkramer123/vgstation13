@@ -99,17 +99,28 @@ var/static/list/burnable_reagents = list(FUEL) //TODO: More types later
 
 /obj/effect/overlay/puddle/Crossed(atom/movable/AM)
 	if(turf_on.reagents && (isobj(AM) || ismob(AM))) // Only for reaction_obj and reaction_mob, no misc types.
-		//Only targeting feet here, TODO: Uncomment when a non-gunk system for this is devised.
-		/*
-		turf_on.reagents.remove_all(turf_on.reagents.total_volume/10)
-		turf_on.reagents.reaction(AM, volume_multiplier = 0.1)
-		*/
+		//turf_on.reagents.remove_all(turf_on.reagents.total_volume/10)
 		if(isliving(AM))
 			var/mob/living/L = AM
 			if(turf_on.reagents.has_reagent(LUBE))
 				L.ApplySlip(TURF_WET_LUBE)
 			else if(turf_on.reagents.has_any_reagents(MILDSLIPPABLES))
 				L.ApplySlip(TURF_WET_WATER)
+		/*	var/list/zones_to_use = list(LIMB_HEAD,LIMB_CHEST,LIMB_GROIN) //TODO: Uncomment in separate PR.
+			if(L.lying)
+				// Right side of body if lying on right and vice versa, all of body except mouth on eyes if on back and all if on stomach
+				if(L.dir == WEST || L.dir == NORTH || L.dir == SOUTH)
+					zones_to_use += list(LIMB_RIGHT_ARM,LIMB_RIGHT_HAND,LIMB_RIGHT_LEG,LIMB_RIGHT_FOOT)
+				if(L.dir == EAST || L.dir == NORTH || L.dir == SOUTH)
+					zones_to_use += list(LIMB_LEFT_ARM,LIMB_LEFT_HAND,LIMB_LEFT_LEG,LIMB_LEFT_FOOT)
+				if(L.dir == NORTH)
+					zones_to_use += list(TARGET_MOUTH,TARGET_EYES)
+			else
+				//Only targeting feet if standing,
+				zones_to_use = list(LIMB_LEFT_FOOT,LIMB_RIGHT_FOOT)
+			turf_on.reagents.reaction(AM, volume_multiplier = 0.1, zone_sels = zones_to_use)
+		else
+			turf_on.reagents.reaction(AM, volume_multiplier = 0.1)*/
 
 	else
 		return ..()

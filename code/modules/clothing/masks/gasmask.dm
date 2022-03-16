@@ -217,7 +217,6 @@
 		can_flip = 0
 	..()
 
-
 /obj/item/clothing/mask/gas/sexyclown
 	name = "sexy-clown wig and mask"
 	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."

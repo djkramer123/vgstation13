@@ -290,7 +290,7 @@
 					for(var/atom/atm in get_turf(W))
 						if(!W)
 							return
-						W.reagents.reaction(atm, TOUCH)                      // Touch, since we sprayed it.
+						W.reagents.reaction(atm, TOUCH) // Touch, since we sprayed it.
 						if(W.reagents.has_reagent(WATER))
 							if(isliving(atm)) // For extinguishing mobs on fire
 								var/mob/living/M = atm                           // Why isn't this handled by the reagent? - N3X
